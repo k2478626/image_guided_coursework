@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<robot name="neuro_arm">
+
+  <!-- BASE LINK -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.10" length="0.05"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.10" length="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- JOINT 1: BASE ROTATION (YAW) -->
+  <joint name="joint_base_yaw" type="revolute">
+    <parent link="base_link"/>
+    <child link="link_shoulder_pitch"/>
+    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14" upper="3.14" effort="50" velocity="1.0"/>
+  </joint>
+
+  <!-- LINK FOR SHOULDER PITCH -->
+  <link name="link_shoulder_pitch">
+    <visual>
+      <origin xyz="0 0 0.10" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.05 0.05 0.20"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.05 0.05 0.20"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- JOINT 2: SHOULDER PITCH -->
+  <joint name="joint_shoulder_pitch" type="revolute">
+    <parent link="link_shoulder_pitch"/>
+    <child link="link_shoulder_roll"/>
+    <origin xyz="0 0 0.20" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="50" velocity="1.0"/>
+  </joint>
+
+  <!-- LINK FOR SHOULDER ROLL -->
+  <link name="link_shoulder_roll">
+    <visual>
+      <origin xyz="0 0 0.10" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.04 0.04 0.20"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.04 0.04 0.20"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- JOINT 3: SHOULDER ROLL -->
+  <joint name="joint_shoulder_roll" type="revolute">
+    <parent link="link_shoulder_roll"/>
+    <child link="link_elbow_pitch"/>
+    <origin xyz="0 0 0.20" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-1.2" upper="1.2" effort="40" velocity="1.0"/>
+  </joint>
+
+  <!-- LINK FOR ELBOW PITCH -->
+  <link name="link_elbow_pitch">
+    <visual>
+      <origin xyz="0 0 0.15" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.03" length="0.30"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.03" length="0.30"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- JOINT 4: ELBOW PITCH -->
+  <joint name="joint_elbow_pitch" type="revolute">
+    <parent link="link_elbow_pitch"/>
+    <child link="link_wrist_pitch"/>
+    <origin xyz="0 0 0.30" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="30" velocity="1.0"/>
+  </joint>
+
+  <!-- LINK FOR WRIST PITCH -->
+  <link name="link_wrist_pitch">
+    <visual>
+      <origin xyz="0 0 0.08" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.025" length="0.16"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.025" length="0.16"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- JOINT 5: WRIST PITCH -->
+  <joint name="joint_wrist_pitch" type="revolute">
+    <parent link="link_wrist_pitch"/>
+    <child link="link_wrist_roll"/>
+    <origin xyz="0 0 0.16" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-1.57" upper="1.57" effort="20" velocity="1.0"/>
+  </joint>
+
+  <!-- LINK FOR WRIST ROLL/YAW -->
+  <link name="link_wrist_roll">
+    <visual>
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.02" length="0.10"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.02" length="0.10"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- JOINT 6: WRIST ROLL -->
+  <joint name="joint_wrist_roll" type="revolute">
+    <parent link="link_wrist_roll"/>
+    <child link="link_insertion"/>
+    <origin xyz="0 0 0.10" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14" upper="3.14" effort="15" velocity="1.0"/>
+  </joint>
+
+  <!-- LINK FOR INSERTION (PRISMATIC) -->
+  <link name="link_insertion">
+    <visual>
+      <origin xyz="0 0 0.10" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.015" length="0.20"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.015" length="0.20"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- JOINT 7: INSERTION (PRISMATIC) -->
+  <joint name="joint_tool_insertion" type="prismatic">
+    <parent link="link_insertion"/>
+    <child link="end_effector_tool"/>
+    <origin xyz="0 0 0.20" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="0.00" upper="0.10" effort="10" velocity="0.02"/>
+  </joint>
+
+  <!-- END‐EFFECTOR (TOOLS TIP) -->
+  <link name="end_effector_tool">
+    <visual>
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.01" length="0.10"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.01" length="0.10"/>
+      </geometry>
+    </collision>
+  </link>
+
+</robot>
