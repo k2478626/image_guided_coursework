@@ -1,0 +1,10 @@
+# Default initial positions for neuro_arm's ros2_control fake system
+
+initial_positions:
+  joint_base_yaw: 0
+  joint_elbow_pitch: 0
+  joint_shoulder_pitch: 0
+  joint_shoulder_roll: 0
+  joint_tool_insertion: 0
+  joint_wrist_pitch: 0
+  joint_wrist_roll: 0
