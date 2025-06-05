@@ -3,7 +3,7 @@
   <name>my_neuro_arm_goal</name>
   <version>0.0.0</version>
   <description>My custom package to control the neuro arm with MoveItPy</description>
-  <maintainer email="your-email@example.com">Your Name</maintainer>
+  <maintainer email="k2478626@kcl.ac.uk">Andrea</maintainer>
   <license>Apache 2.0</license>
 
   <exec_depend>rclpy</exec_depend>
