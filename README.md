@@ -2,9 +2,9 @@
 
 This repository contains the code, configuration files, and test scripts for an integrated pipeline that combines medical image processing with robotic simulation. The workflow consists of:
 
-✅ **3D Slicer PathPlanning Module** – An interactive module for safe trajectory planning within medical images.  
-✅ **OpenIGTLink Communication Scripts** – Real-time data streaming between 3D Slicer and ROS2.  
-✅ **ROS2 Integration** – URDF description, MoveIt planning configuration, and RViz visualization for robotic control.
+- **3D Slicer PathPlanning Module** – An interactive module for safe trajectory planning within medical images.  
+- **OpenIGTLink Communication Scripts** – Real-time data streaming between 3D Slicer and ROS2.  
+- **ROS2 Integration** – URDF description, MoveIt planning configuration, and RViz visualization for robotic control.
 
 Each component is carefully modularized, validated, and designed to be reproducible.  
 
