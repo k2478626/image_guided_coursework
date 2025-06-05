@@ -4,7 +4,7 @@ This folder contains the URDF description and MoveIt configuration package for t
 
 ## Contents
 
-- **URDF**: Neuro arm geometry, joint limits, and link definitions (`neuro_arm.urdf`).
+- **URDF**: Neuro arm geometry, joint limits, and link definitions (`NeuroArm.urdf`).
 - **MoveIt Config**: Planning pipelines, joint limits, controllers, and visualization settings for MoveIt and RViz2.
 - **Launch Files**: Launch scripts for MoveIt planning and simulation.
 
