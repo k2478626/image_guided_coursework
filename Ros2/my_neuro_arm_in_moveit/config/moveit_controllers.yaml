@@ -1,4 +1,6 @@
 # MoveIt uses this configuration for controller management
+trajectory_execution:
+  allowed_goal_duration_margin: 10.0
 
 moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
 
@@ -8,8 +10,6 @@ moveit_simple_controller_manager:
 
   arm_group_controller:
     type: FollowJointTrajectory
-    action_ns: /arm_group_controller/follow_joint_trajectory
-    default: true
     joints:
       - joint_base_yaw
       - joint_elbow_pitch
@@ -18,4 +18,6 @@ moveit_simple_controller_manager:
       - joint_tool_insertion
       - joint_wrist_pitch
       - joint_wrist_roll
+    action_ns: follow_joint_trajectory
+    default: True
 
