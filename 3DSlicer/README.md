@@ -23,5 +23,3 @@ From the 3D Slicer Python console:
 import PathPlanning
 PathPlanning.PathPlanningTest().runTest()
 
-## Reference
-For detailed methodology, see the report
