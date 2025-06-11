@@ -32,10 +32,10 @@ def generate_launch_description():
         arguments=["joint_state_broadcaster"],
     )
 
-    # Your custom Python node to run MoveItPy logic
-    my_robot_goal_node = Node(
+    # custom Python node to run MoveItPy logic
+    my_neuro_arm_goal_node = Node(
         package="my_neuro_arm_goal",
-        executable="my_robot_goal",
+        executable="my_neuro_arm_goal_node",
         output="screen"
     )
 
@@ -43,5 +43,5 @@ def generate_launch_description():
         static_tf,
         robot_state_publisher,
         joint_state_broadcaster_spawner,
-        my_robot_goal_node,
+        my_neuro_arm_goal_node,
     ])
