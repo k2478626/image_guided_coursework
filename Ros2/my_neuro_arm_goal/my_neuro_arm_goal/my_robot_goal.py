@@ -5,25 +5,60 @@
 # ----------------------------
 
 import rclpy  # ROS 2 Python API
+from rclpy.node import Node
 from moveit_py import MoveItPy  # MoveIt Python API
+from geometry_msgs.msg import PoseStamped
+
+from ros2_igtl_bridge.msg import PointArray
+
+class MyRobotGoal(Node):
+    def __init__(self):
+        super().__init__('my_obot_goal')
+        self.moveit = MoveItPy(node=self, joint_model_group_name="arm")
+
+        self.entry_point = None
+        self.target_point = None 
+
+        self.create_subscription(
+            PointArray, "/IGTL_POIN_IN", self.point_callback, 10
+        )
+
+    def point_callback(self, msg):
+        name = msg.name
+        point = msg.pointdata[0]
+        self.get_logger().info(f"Received point: {name} at {point.x}, {point.y}, {point.z}")
+    
+        if name == "Entry":
+            self.entry_point = point
+        elif name == "Target":
+            self.target_point = point
+    
+        #Once both are received, move from entry to target (optimal trajectory)
+        if self.entry_point and self.target_point:
+            self.move_to_point(self.entry_point)
+            self.move_to_point(self.target_point)
+            #Reset points to avoid re-execution
+            self.entry_point = None
+            self.target_point = None
+    
+    def move_to_point(self, point):
+        pose = PoseStamped()
+        pose.header.frame_id = "world"
+        pose.pose.position.x = point.x
+        pose.pose.position.y = point.y
+        pose.pose.position.z = point.z
+        pose.pose.orientations.w = 1.0 #Neutral orientation
+    
+        self.get_logger().info(f"Moving to point: {pose.pose.position}")
+        self.moveit.move_to_pose(pose)
+        self.moveit.execute()
 
 def main():
-    # Initialize ROS 2 Python client
-    rclpy.init()
-
-    # Create a node to interface with ROS 2
-    node = rclpy.create_node("my_robot_goal")
-
-    # Initialize MoveItPy for your planning group
-    # Change "arm" to your actual planning group name, e.g., "neuro_arm"
-    moveit = MoveItPy(node=node, joint_model_group_name="arm")
-
-    # Example: move to a random valid state
-    moveit.move_to_random_state()
-    moveit.execute()
-
-    # Shutdown ROS 2
-    rclpy.shutdown()
+    rclpy.init(args=args)
+    node = MyRobotGoal()
+    rclpy.spin(node)
+    clpy.shutdown()
 
 if __name__ == "__main__":
     main()
+    
