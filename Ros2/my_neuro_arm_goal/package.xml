@@ -2,13 +2,24 @@
 <package format="3">
   <name>my_neuro_arm_goal</name>
   <version>0.0.0</version>
-  <description>My custom package to control the neuro arm with MoveItPy</description>
-  <maintainer email="k2478626@kcl.ac.uk">Andrea</maintainer>
-  <license>Apache 2.0</license>
+  <description>My Neuro Arm Goal Python package</description>
+  <maintainer email="awalkerperez@gmail.com">Andrea</maintainer>
+  <license>TODO: License declaration</license>
 
-  <exec_depend>rclpy</exec_depend>
-  <exec_depend>moveit_py</exec_depend>
-  <exec_depend>geometry_msgs</exec_depend>
+  <buildtool_depend>ament_python</buildtool_depend>
 
-  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
+  <depend>moveit_py</depend>
+  <depend>ros2_igtl_bridge</depend>
+  <depend>std_msgs</depend>
+
+  <exec_depend>launch</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
 </package>
